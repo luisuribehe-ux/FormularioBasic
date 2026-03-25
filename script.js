@@ -3,8 +3,7 @@
    ================================================ */
 
 // ---- Google Apps Script URL ----
-// TODO(human): Replace with your deployed Google Apps Script Web App URL
-const APPS_SCRIPT_URL = 'YOUR_DEPLOYED_WEB_APP_URL';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUbRFf202QrsFoFawjeOQNn28RC0lqiKOhyj3YDkxIegka7-CyjdgVzy1AbZ5d_U_6/exec';
 
 // ---- Translations ----
 const translations = {
