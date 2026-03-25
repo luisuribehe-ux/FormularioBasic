@@ -438,6 +438,32 @@ body {
   color: var(--accent-orange);
 }
 
+.radio-includes {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.radio-includes li {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  padding-left: 18px;
+  position: relative;
+}
+
+.radio-includes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent-green);
+  font-weight: 700;
+  font-size: 11px;
+}
+
 /* ---- Conditional Fields ---- */
 .conditional-fields {
   max-height: 0;
