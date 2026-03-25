@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="page-title">Newsletter de IA - LuisconIA</title>
+  <meta name="description" content="Suscríbete al newsletter de IA más completo. Updates diarios de Claude Code, herramientas de IA y estrategias para tu negocio.">
+  <meta property="og:title" content="Newsletter de IA - LuisconIA">
+  <meta property="og:description" content="Updates diarios de Claude Code, herramientas de IA y estrategias para tu negocio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Language Toggle -->
+  <div class="lang-toggle">
+    <button id="lang-es" class="lang-btn active" onclick="setLanguage('es')">ES</button>
+    <button id="lang-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
+  </div>
+
+  <main class="container">
+    <!-- Header -->
+    <header class="hero">
+      <div class="badge" data-i18n="badge">Recurso gratuito</div>
+      <h1 class="hero-title">
+        <span data-i18n="hero-title-1">Mantente a la vanguardia</span><br>
+        <span class="gradient-text" data-i18n="hero-title-2">de la Inteligencia Artificial</span>
+      </h1>
+      <p class="hero-subtitle" data-i18n="hero-subtitle">Recibe las noticias, herramientas y estrategias de IA que están transformando negocios.</p>
+    </header>
+
+    <!-- Form Card -->
+    <div class="form-card">
+      <div class="form-header">
+        <h2 data-i18n="form-title">Suscríbete al Newsletter</h2>
+        <p data-i18n="form-subtitle">Elige tu plan y comienza a recibir insights de IA.</p>
+      </div>
+
+      <form id="lead-form" novalidate>
+        <!-- Basic Fields -->
+        <div class="form-grid">
+          <div class="field">
+            <label for="nombre" data-i18n="label-nombre">Nombre</label>
+            <input type="text" id="nombre" data-i18n-placeholder="ph-nombre" placeholder="Tu nombre completo" required>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="correo" data-i18n="label-correo">Correo electrónico</label>
+            <input type="email" id="correo" data-i18n-placeholder="ph-correo" placeholder="tu@email.com" required>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="telefono" data-i18n="label-telefono">Teléfono</label>
+            <input type="tel" id="telefono" data-i18n-placeholder="ph-telefono" placeholder="+51 999 999 999" required>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="cargo" data-i18n="label-cargo">Cargo</label>
+            <input type="text" id="cargo" data-i18n-placeholder="ph-cargo" placeholder="CEO, CTO, Gerente..." required>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="empresa" data-i18n="label-empresa">Empresa</label>
+            <input type="text" id="empresa" data-i18n-placeholder="ph-empresa" placeholder="Nombre de tu empresa" required>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="rubro" data-i18n="label-rubro">Rubro</label>
+            <input type="text" id="rubro" data-i18n-placeholder="ph-rubro" placeholder="Tecnología, Consultoría, Retail..." required>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <!-- Subscription Options -->
+        <div class="subscription-section">
+          <label class="section-label" data-i18n="label-suscripcion">Elige tu suscripción</label>
+
+          <div class="radio-cards">
+            <label class="radio-card" for="opt-general">
+              <input type="radio" name="suscripcion" id="opt-general" value="general">
+              <div class="radio-card-content">
+                <div class="radio-indicator"></div>
+                <div class="radio-info">
+                  <span class="radio-title" data-i18n="opt-general-title">Newsletter General</span>
+                  <span class="radio-desc" data-i18n="opt-general-desc">Updates diarios de Claude Code y herramientas de IA. Gratis por 1 semana.</span>
+                  <span class="radio-tag free" data-i18n="opt-general-tag">Gratis 7 días</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="radio-card" for="opt-personalizado">
+              <input type="radio" name="suscripcion" id="opt-personalizado" value="personalizado">
+              <div class="radio-card-content">
+                <div class="radio-indicator"></div>
+                <div class="radio-info">
+                  <span class="radio-title" data-i18n="opt-personal-title">Newsletter Personalizado</span>
+                  <span class="radio-desc" data-i18n="opt-personal-desc">Insights de IA aplicados a tu negocio con acciones específicas cada día. Gratis por 3 días.</span>
+                  <span class="radio-tag premium" data-i18n="opt-personal-tag">Gratis 3 días</span>
+                </div>
+              </div>
+            </label>
+          </div>
+          <span class="error-msg" id="suscripcion-error"></span>
+        </div>
+
+        <!-- Conditional Fields (Option 2 only) -->
+        <div id="conditional-fields" class="conditional-fields">
+          <div class="conditional-header">
+            <div class="conditional-line"></div>
+            <span data-i18n="conditional-title">Cuéntanos sobre tu negocio</span>
+            <div class="conditional-line"></div>
+          </div>
+
+          <div class="field">
+            <label for="descripcion_negocio" data-i18n="label-desc-negocio">Descripción del negocio</label>
+            <textarea id="descripcion_negocio" rows="3" data-i18n-placeholder="ph-desc-negocio" placeholder="¿A qué se dedica tu empresa? Describe brevemente tu modelo de negocio."></textarea>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="servicios_productos" data-i18n="label-servicios">Servicios o Productos</label>
+            <textarea id="servicios_productos" rows="3" data-i18n-placeholder="ph-servicios" placeholder="¿Qué productos o servicios ofreces?"></textarea>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="oportunidades_dolores" data-i18n="label-dolores">Oportunidades o Dolores hoy</label>
+            <textarea id="oportunidades_dolores" rows="3" data-i18n-placeholder="ph-dolores" placeholder="¿Cuáles son tus principales retos o áreas de oportunidad?"></textarea>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="publico_objetivo" data-i18n="label-publico">Público objetivo</label>
+            <textarea id="publico_objetivo" rows="3" data-i18n-placeholder="ph-publico" placeholder="¿Quiénes son tus clientes ideales? Describe tu público objetivo."></textarea>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="field">
+            <label for="herramientas_ia" data-i18n="label-herramientas">Herramientas actuales de IA</label>
+            <textarea id="herramientas_ia" rows="3" data-i18n-placeholder="ph-herramientas" placeholder="¿Qué herramientas de IA usas actualmente? (ChatGPT, Claude, Copilot, etc.)"></textarea>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" id="submit-btn" class="submit-btn">
+          <span class="btn-text" data-i18n="submit-btn">Suscribirme</span>
+          <span class="btn-loader"></span>
+        </button>
+
+        <p class="form-disclaimer" data-i18n="disclaimer">Sin spam. Solo contenido de valor. Cancela cuando quieras.</p>
+      </form>
+
+      <!-- Success State -->
+      <div id="success-state" class="success-state hidden">
+        <div class="success-icon">&#10003;</div>
+        <h3 data-i18n="success-title">¡Registro exitoso!</h3>
+        <p data-i18n="success-msg">Te hemos registrado correctamente. Pronto recibirás tu primer newsletter.</p>
+        <p class="success-email" id="success-email"></p>
+        <button class="reset-btn" onclick="resetForm()" data-i18n="success-reset">Registrar otro</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer-brand"><span class="accent-orange">LuisconIA</span> | <span class="accent-muted">Neura.Lab</span></span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
