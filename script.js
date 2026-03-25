@@ -21,6 +21,16 @@ const translations = {
     'label-cargo': 'Cargo',
     'label-empresa': 'Empresa',
     'label-rubro': 'Rubro',
+    'label-categorias': '¿Qué temas te interesan?',
+    'hint-categorias': 'Selecciona hasta 3 temas',
+    'cat-ia-general': 'IA General & Tendencias',
+    'cat-herramientas': 'Herramientas & Productos de IA',
+    'cat-claude': 'Claude Code & Agentes IA',
+    'cat-negocios': 'IA para Negocios',
+    'cat-regulacion': 'Regulación & Leyes de IA',
+    'cat-global': 'IA Global: Avances por País',
+    'val-categorias': 'Selecciona al menos un tema',
+    'val-categorias-max': 'Máximo 3 temas',
     'label-suscripcion': 'Elige tu suscripción',
     'opt-general-title': 'Newsletter General',
     'opt-general-desc': 'Updates diarios de Claude Code y herramientas de IA. Gratis por 1 semana.',
@@ -71,6 +81,16 @@ const translations = {
     'label-cargo': 'Job Title',
     'label-empresa': 'Company',
     'label-rubro': 'Industry',
+    'label-categorias': 'What topics interest you?',
+    'hint-categorias': 'Select up to 3 topics',
+    'cat-ia-general': 'General AI & Trends',
+    'cat-herramientas': 'AI Tools & Products',
+    'cat-claude': 'Claude Code & AI Agents',
+    'cat-negocios': 'AI for Business',
+    'cat-regulacion': 'AI Regulation & Law',
+    'cat-global': 'Global AI: Advances by Country',
+    'val-categorias': 'Select at least one topic',
+    'val-categorias-max': 'Maximum 3 topics',
     'label-suscripcion': 'Choose your subscription',
     'opt-general-title': 'General Newsletter',
     'opt-general-desc': 'Daily Claude Code and AI tools updates. Free for 1 week.',
@@ -218,6 +238,16 @@ function validateForm() {
     isValid = false;
   }
 
+  // Categories (at least 1, max 3)
+  const checkedCategories = document.querySelectorAll('input[name="categorias"]:checked');
+  if (checkedCategories.length === 0) {
+    document.getElementById('categorias-error').textContent = translations[currentLang]['val-categorias'];
+    isValid = false;
+  } else if (checkedCategories.length > 3) {
+    document.getElementById('categorias-error').textContent = translations[currentLang]['val-categorias-max'];
+    isValid = false;
+  }
+
   // Subscription selection
   const suscripcion = document.querySelector('input[name="suscripcion"]:checked');
   if (!suscripcion) {
@@ -252,6 +282,21 @@ function initRealTimeValidation() {
       field.classList.remove('input-error');
       const errorMsg = field.parentElement.querySelector('.error-msg');
       if (errorMsg) errorMsg.textContent = '';
+    });
+  });
+
+  // Category checkboxes: max 3, clear error on change
+  const categoryCheckboxes = document.querySelectorAll('input[name="categorias"]');
+  categoryCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      const checked = document.querySelectorAll('input[name="categorias"]:checked');
+      // Enforce max 3
+      if (checked.length > 3) {
+        cb.checked = false;
+        document.getElementById('categorias-error').textContent = translations[currentLang]['val-categorias-max'];
+        return;
+      }
+      document.getElementById('categorias-error').textContent = '';
     });
   });
 
@@ -292,6 +337,10 @@ async function handleSubmit(e) {
 
   const suscripcion = document.querySelector('input[name="suscripcion"]:checked').value;
 
+  // Collect selected categories
+  const selectedCategories = Array.from(document.querySelectorAll('input[name="categorias"]:checked'))
+    .map(cb => cb.value).join(', ');
+
   const formData = {
     nombre: document.getElementById('nombre').value.trim(),
     correo: document.getElementById('correo').value.trim().toLowerCase(),
@@ -299,6 +348,7 @@ async function handleSubmit(e) {
     cargo: document.getElementById('cargo').value.trim(),
     empresa: document.getElementById('empresa').value.trim(),
     rubro: document.getElementById('rubro').value.trim(),
+    categorias: selectedCategories,
     suscripcion: suscripcion === 'personalizado' ? 'Newsletter Personalizado' : 'Newsletter General',
     descripcion_negocio: document.getElementById('descripcion_negocio')?.value.trim() || '',
     servicios_productos: document.getElementById('servicios_productos')?.value.trim() || '',
@@ -341,6 +391,7 @@ function resetForm() {
   document.getElementById('lead-form').reset();
   document.getElementById('success-state').classList.add('hidden');
   document.getElementById('conditional-fields').classList.remove('visible');
+  document.querySelectorAll('input[name="categorias"]').forEach(cb => cb.checked = false);
   clearErrors();
   document.getElementById('correo').classList.remove('input-valid');
 }

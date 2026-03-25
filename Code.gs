@@ -4,8 +4,8 @@
  * SETUP:
  * 1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/10IRVBlsV21T0EeUC2qGwRUx1wsXimUvrZxBYdotCbgg/edit
  * 2. Rename the first tab to "Leads"
- * 3. Add headers in Row 1 (A1:N1):
- *    Timestamp | Nombre | Correo | Telefono | Cargo | Empresa | Rubro | Suscripcion | Descripcion_Negocio | Servicios_Productos | Oportunidades_Dolores | Publico_Objetivo | Herramientas_IA | Idioma
+ * 3. Add headers in Row 1 (A1:O1):
+ *    Timestamp | Nombre | Correo | Telefono | Cargo | Empresa | Rubro | Categorias | Suscripcion | Descripcion_Negocio | Servicios_Productos | Oportunidades_Dolores | Publico_Objetivo | Herramientas_IA | Idioma
  * 4. Go to Extensions > Apps Script
  * 5. Paste this entire code into Code.gs
  * 6. Click Deploy > New deployment
@@ -28,7 +28,7 @@ function doPost(e) {
       // Add headers
       sheet.appendRow([
         'Timestamp', 'Nombre', 'Correo', 'Telefono', 'Cargo', 'Empresa',
-        'Rubro', 'Suscripcion', 'Descripcion_Negocio', 'Servicios_Productos',
+        'Rubro', 'Categorias', 'Suscripcion', 'Descripcion_Negocio', 'Servicios_Productos',
         'Oportunidades_Dolores', 'Publico_Objetivo', 'Herramientas_IA', 'Idioma'
       ]);
     }
@@ -43,6 +43,7 @@ function doPost(e) {
       data.cargo || '',
       data.empresa || '',
       data.rubro || '',
+      data.categorias || '',
       data.suscripcion || '',
       data.descripcion_negocio || '',
       data.servicios_productos || '',

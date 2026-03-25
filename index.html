@@ -78,6 +78,40 @@
           </div>
         </div>
 
+        <!-- Interest Categories (multi-select) -->
+        <div class="categories-section">
+          <label class="section-label" data-i18n="label-categorias">¿Qué temas te interesan?</label>
+          <p class="section-hint" data-i18n="hint-categorias">Selecciona hasta 3 temas</p>
+
+          <div class="category-chips">
+            <label class="chip">
+              <input type="checkbox" name="categorias" value="ia_general">
+              <span class="chip-text" data-i18n="cat-ia-general">IA General & Tendencias</span>
+            </label>
+            <label class="chip">
+              <input type="checkbox" name="categorias" value="herramientas_ia">
+              <span class="chip-text" data-i18n="cat-herramientas">Herramientas & Productos de IA</span>
+            </label>
+            <label class="chip">
+              <input type="checkbox" name="categorias" value="claude_agentes">
+              <span class="chip-text" data-i18n="cat-claude">Claude Code & Agentes IA</span>
+            </label>
+            <label class="chip">
+              <input type="checkbox" name="categorias" value="ia_negocios">
+              <span class="chip-text" data-i18n="cat-negocios">IA para Negocios</span>
+            </label>
+            <label class="chip">
+              <input type="checkbox" name="categorias" value="regulacion_ia">
+              <span class="chip-text" data-i18n="cat-regulacion">Regulación & Leyes de IA</span>
+            </label>
+            <label class="chip">
+              <input type="checkbox" name="categorias" value="ia_global">
+              <span class="chip-text" data-i18n="cat-global">IA Global: Avances por País</span>
+            </label>
+          </div>
+          <span class="error-msg" id="categorias-error"></span>
+        </div>
+
         <!-- Subscription Options -->
         <div class="subscription-section">
           <label class="section-label" data-i18n="label-suscripcion">Elige tu suscripción</label>
