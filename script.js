@@ -41,12 +41,24 @@ const translations = {
     'opt-personal-inc-1': 'Noticias diarias enfocadas en tu negocio y rubro',
     'opt-personal-inc-2': 'Insights accionables para aplicar cada día',
     'opt-personal-inc-3': 'Guías prácticas semanales sobre herramientas de IA',
-    'conditional-title': 'Cuéntanos sobre tu negocio',
+    'profile-title': 'Cuéntanos sobre ti',
+    'profile-entrepreneur': 'Mi propio negocio',
+    'profile-entrepreneur-desc': 'Emprendedor, consultor, freelance o dueño de empresa',
+    'profile-corporate': 'Trabajo en una empresa',
+    'profile-corporate-desc': 'Profesional, líder de equipo o ejecutivo en una organización',
+    'val-perfil': 'Selecciona tu perfil',
+    // Entrepreneur fields
     'label-desc-negocio': 'Descripción del negocio',
     'label-servicios': 'Servicios o Productos',
     'label-dolores': 'Oportunidades o Dolores hoy',
     'label-publico': 'Público objetivo',
-    'label-herramientas': 'Herramientas actuales de IA',
+    'label-herramientas': 'Herramientas de IA que usas',
+    // Corporate fields
+    'label-area': 'Área o departamento',
+    'label-desafios': 'Principales desafíos en tu día a día',
+    'label-uso-ia': '¿Cómo usas IA hoy en tu trabajo?',
+    'label-herramientas-corp': 'Herramientas de IA que usas o conoces',
+    'label-objetivo': '¿Qué quieres lograr con IA en tu rol?',
     'submit-btn': 'Suscribirme',
     'disclaimer': 'Sin spam. Solo contenido de valor. Cancela cuando quieras.',
     'success-title': '¡Registro exitoso!',
@@ -64,6 +76,11 @@ const translations = {
     'ph-dolores': '¿Cuáles son tus principales retos o áreas de oportunidad?',
     'ph-publico': '¿Quiénes son tus clientes ideales? Describe tu público objetivo.',
     'ph-herramientas': '¿Qué herramientas de IA usas actualmente? (ChatGPT, Claude, Copilot, etc.)',
+    'ph-area': 'Marketing, Ventas, Operaciones, Tecnología, RRHH...',
+    'ph-desafios': 'Ej: Tareas operativas repetitivas, exceso de reuniones, reportes manuales, coordinación entre equipos...',
+    'ph-uso-ia': 'Ej: Para redactar emails, analizar datos, generar presentaciones, aún no la uso...',
+    'ph-herramientas-corp': 'ChatGPT, Claude, Copilot, Gemini, Midjourney, ninguna...',
+    'ph-objetivo': 'Ej: Automatizar tareas, ser más productivo, mejorar análisis de datos, aprender nuevas habilidades...',
     // Validation
     'val-required': 'Este campo es obligatorio',
     'val-email': 'Ingresa un correo válido',
@@ -104,12 +121,24 @@ const translations = {
     'opt-personal-inc-1': 'Daily news tailored to your business and industry',
     'opt-personal-inc-2': 'Actionable insights to apply every day',
     'opt-personal-inc-3': 'Weekly practical guides on AI tools',
-    'conditional-title': 'Tell us about your business',
+    'profile-title': 'Tell us about yourself',
+    'profile-entrepreneur': 'My own business',
+    'profile-entrepreneur-desc': 'Entrepreneur, consultant, freelancer or business owner',
+    'profile-corporate': 'I work at a company',
+    'profile-corporate-desc': 'Professional, team lead or executive at an organization',
+    'val-perfil': 'Select your profile',
+    // Entrepreneur fields
     'label-desc-negocio': 'Business Description',
     'label-servicios': 'Services or Products',
     'label-dolores': 'Opportunities or Pain Points',
     'label-publico': 'Target Audience',
-    'label-herramientas': 'Current AI Tools',
+    'label-herramientas': 'AI Tools you use',
+    // Corporate fields
+    'label-area': 'Department or area',
+    'label-desafios': 'Main daily challenges',
+    'label-uso-ia': 'How do you use AI today at work?',
+    'label-herramientas-corp': 'AI tools you use or know',
+    'label-objetivo': 'What do you want to achieve with AI?',
     'submit-btn': 'Subscribe',
     'disclaimer': 'No spam. Only valuable content. Cancel anytime.',
     'success-title': 'Successfully registered!',
@@ -127,6 +156,11 @@ const translations = {
     'ph-dolores': 'What are your main challenges or areas of opportunity?',
     'ph-publico': 'Who are your ideal customers? Describe your target audience.',
     'ph-herramientas': 'What AI tools do you currently use? (ChatGPT, Claude, Copilot, etc.)',
+    'ph-area': 'Marketing, Sales, Operations, Technology, HR...',
+    'ph-desafios': 'E.g.: Repetitive tasks, too many meetings, manual reports, cross-team coordination...',
+    'ph-uso-ia': 'E.g.: Writing emails, analyzing data, creating presentations, not using it yet...',
+    'ph-herramientas-corp': 'ChatGPT, Claude, Copilot, Gemini, Midjourney, none...',
+    'ph-objetivo': 'E.g.: Automate tasks, boost productivity, improve data analysis, learn new skills...',
     // Validation
     'val-required': 'This field is required',
     'val-email': 'Enter a valid email',
@@ -172,29 +206,61 @@ function setLanguage(lang) {
 }
 
 // ---- Conditional Fields Logic ----
+function clearProfileFields() {
+  // Clear and hide both profile field sets
+  ['entrepreneur-fields', 'corporate-fields'].forEach(id => {
+    const container = document.getElementById(id);
+    container.classList.remove('visible');
+    container.querySelectorAll('textarea, input[type="text"]').forEach(f => {
+      f.removeAttribute('required');
+      f.value = '';
+      f.classList.remove('input-error');
+      const errorMsg = f.parentElement.querySelector('.error-msg');
+      if (errorMsg) errorMsg.textContent = '';
+    });
+  });
+  // Uncheck profile radios
+  document.querySelectorAll('input[name="perfil"]').forEach(r => r.checked = false);
+}
+
+function showProfileFields(profile) {
+  // Hide both first
+  ['entrepreneur-fields', 'corporate-fields'].forEach(id => {
+    document.getElementById(id).classList.remove('visible');
+    document.getElementById(id).querySelectorAll('textarea, input[type="text"]').forEach(f => {
+      f.removeAttribute('required');
+    });
+  });
+
+  // Show the selected one
+  const targetId = profile === 'emprendedor' ? 'entrepreneur-fields' : 'corporate-fields';
+  const target = document.getElementById(targetId);
+  target.classList.add('visible');
+  target.querySelectorAll('textarea, input[type="text"]').forEach(f => {
+    f.setAttribute('required', '');
+  });
+}
+
 function initConditionalFields() {
-  const radios = document.querySelectorAll('input[name="suscripcion"]');
+  const suscripcionRadios = document.querySelectorAll('input[name="suscripcion"]');
   const conditionalFields = document.getElementById('conditional-fields');
 
-  radios.forEach(radio => {
+  suscripcionRadios.forEach(radio => {
     radio.addEventListener('change', (e) => {
       if (e.target.value === 'personalizado') {
         conditionalFields.classList.add('visible');
-        // Mark fields as required
-        conditionalFields.querySelectorAll('textarea').forEach(f => {
-          f.setAttribute('required', '');
-        });
       } else {
         conditionalFields.classList.remove('visible');
-        // Remove required and clear
-        conditionalFields.querySelectorAll('textarea').forEach(f => {
-          f.removeAttribute('required');
-          f.value = '';
-          f.classList.remove('input-error');
-          const errorMsg = f.parentElement.querySelector('.error-msg');
-          if (errorMsg) errorMsg.textContent = '';
-        });
+        clearProfileFields();
       }
+    });
+  });
+
+  // Profile selection
+  document.querySelectorAll('input[name="perfil"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      showProfileFields(e.target.value);
+      document.getElementById('perfil-error').textContent = '';
     });
   });
 }
@@ -264,17 +330,22 @@ function validateForm() {
 
   // Conditional fields (if personalizado selected)
   if (suscripcion && suscripcion.value === 'personalizado') {
-    const conditionalIds = [
-      'descripcion_negocio', 'servicios_productos',
-      'oportunidades_dolores', 'publico_objetivo', 'herramientas_ia'
-    ];
-    conditionalIds.forEach(id => {
-      const field = document.getElementById(id);
-      if (!field.value.trim()) {
-        showFieldError(id, 'val-required');
-        isValid = false;
-      }
-    });
+    // Must select a profile
+    const perfil = document.querySelector('input[name="perfil"]:checked');
+    if (!perfil) {
+      document.getElementById('perfil-error').textContent = translations[currentLang]['val-perfil'];
+      isValid = false;
+    } else if (perfil.value === 'emprendedor') {
+      ['descripcion_negocio', 'servicios_productos', 'oportunidades_dolores', 'publico_objetivo', 'herramientas_ia'].forEach(id => {
+        const field = document.getElementById(id);
+        if (!field.value.trim()) { showFieldError(id, 'val-required'); isValid = false; }
+      });
+    } else if (perfil.value === 'corporativo') {
+      ['area_departamento', 'desafios_laborales', 'uso_actual_ia', 'herramientas_corp', 'objetivo_ia'].forEach(id => {
+        const field = document.getElementById(id);
+        if (!field.value.trim()) { showFieldError(id, 'val-required'); isValid = false; }
+      });
+    }
   }
 
   return isValid;
@@ -347,6 +418,9 @@ async function handleSubmit(e) {
   const selectedCategories = Array.from(document.querySelectorAll('input[name="categorias"]:checked'))
     .map(cb => cb.value).join(', ');
 
+  const perfil = document.querySelector('input[name="perfil"]:checked');
+  const perfilValue = perfil ? (perfil.value === 'emprendedor' ? 'Emprendedor' : 'Corporativo') : '';
+
   const formData = {
     nombre: document.getElementById('nombre').value.trim(),
     correo: document.getElementById('correo').value.trim().toLowerCase(),
@@ -356,11 +430,19 @@ async function handleSubmit(e) {
     rubro: document.getElementById('rubro').value.trim(),
     categorias: selectedCategories,
     suscripcion: suscripcion === 'personalizado' ? 'Newsletter Personalizado' : 'Newsletter General',
+    perfil: perfilValue,
+    // Entrepreneur fields
     descripcion_negocio: document.getElementById('descripcion_negocio')?.value.trim() || '',
     servicios_productos: document.getElementById('servicios_productos')?.value.trim() || '',
     oportunidades_dolores: document.getElementById('oportunidades_dolores')?.value.trim() || '',
     publico_objetivo: document.getElementById('publico_objetivo')?.value.trim() || '',
     herramientas_ia: document.getElementById('herramientas_ia')?.value.trim() || '',
+    // Corporate fields
+    area_departamento: document.getElementById('area_departamento')?.value.trim() || '',
+    desafios_laborales: document.getElementById('desafios_laborales')?.value.trim() || '',
+    uso_actual_ia: document.getElementById('uso_actual_ia')?.value.trim() || '',
+    herramientas_corp: document.getElementById('herramientas_corp')?.value.trim() || '',
+    objetivo_ia: document.getElementById('objetivo_ia')?.value.trim() || '',
     idioma: currentLang
   };
 
@@ -397,6 +479,7 @@ function resetForm() {
   document.getElementById('lead-form').reset();
   document.getElementById('success-state').classList.add('hidden');
   document.getElementById('conditional-fields').classList.remove('visible');
+  clearProfileFields();
   document.querySelectorAll('input[name="categorias"]').forEach(cb => cb.checked = false);
   clearErrors();
   document.getElementById('correo').classList.remove('input-valid');

@@ -464,6 +464,95 @@ body {
   font-size: 11px;
 }
 
+/* ---- Profile Selector ---- */
+.profile-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.profile-btn {
+  flex: 1;
+  cursor: pointer;
+  display: block;
+}
+
+.profile-btn input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.profile-btn-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+
+.profile-btn:hover .profile-btn-content {
+  border-color: var(--border-hover);
+}
+
+.profile-btn input:checked ~ .profile-btn-content {
+  border-color: var(--accent-orange);
+  background: #D9770608;
+  box-shadow: 0 0 0 3px #D9770615;
+}
+
+.profile-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.profile-btn-title {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.profile-btn-desc {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.profile-fields {
+  display: none;
+}
+
+.profile-fields.visible {
+  display: block;
+  animation: fadeSlide 0.3s ease;
+}
+
+.profile-fields .field {
+  margin-bottom: 18px;
+}
+
+.profile-fields .field:last-child {
+  margin-bottom: 0;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .profile-selector {
+    flex-direction: column;
+  }
+}
+
 /* ---- Conditional Fields ---- */
 .conditional-fields {
   max-height: 0;

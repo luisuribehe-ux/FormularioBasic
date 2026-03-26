@@ -4,16 +4,11 @@
  * SETUP:
  * 1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/10IRVBlsV21T0EeUC2qGwRUx1wsXimUvrZxBYdotCbgg/edit
  * 2. Rename the first tab to "Leads"
- * 3. Add headers in Row 1 (A1:O1):
- *    Timestamp | Nombre | Correo | Telefono | Cargo | Empresa | Rubro | Categorias | Suscripcion | Descripcion_Negocio | Servicios_Productos | Oportunidades_Dolores | Publico_Objetivo | Herramientas_IA | Idioma
+ * 3. Add headers in Row 1 (A1:T1):
+ *    Timestamp | Nombre | Correo | Telefono | Cargo | Empresa | Rubro | Categorias | Suscripcion | Perfil | Descripcion_Negocio | Servicios_Productos | Oportunidades_Dolores | Publico_Objetivo | Herramientas_IA | Area_Departamento | Desafios_Laborales | Uso_Actual_IA | Herramientas_Corp | Objetivo_IA | Idioma
  * 4. Go to Extensions > Apps Script
  * 5. Paste this entire code into Code.gs
- * 6. Click Deploy > New deployment
- * 7. Type: Web app
- * 8. Execute as: Me
- * 9. Who has access: Anyone
- * 10. Click Deploy and authorize when prompted
- * 11. Copy the Web App URL and paste it in script.js (replace YOUR_DEPLOYED_WEB_APP_URL)
+ * 6. Deploy > Manage deployments > edit > New version > Deploy
  */
 
 function doPost(e) {
@@ -22,14 +17,15 @@ function doPost(e) {
                               .getSheetByName('Leads');
 
     if (!sheet) {
-      // Create the sheet if it doesn't exist
       sheet = SpreadsheetApp.openById('10IRVBlsV21T0EeUC2qGwRUx1wsXimUvrZxBYdotCbgg')
                             .insertSheet('Leads');
-      // Add headers
       sheet.appendRow([
         'Timestamp', 'Nombre', 'Correo', 'Telefono', 'Cargo', 'Empresa',
-        'Rubro', 'Categorias', 'Suscripcion', 'Descripcion_Negocio', 'Servicios_Productos',
-        'Oportunidades_Dolores', 'Publico_Objetivo', 'Herramientas_IA', 'Idioma'
+        'Rubro', 'Categorias', 'Suscripcion', 'Perfil',
+        'Descripcion_Negocio', 'Servicios_Productos', 'Oportunidades_Dolores',
+        'Publico_Objetivo', 'Herramientas_IA',
+        'Area_Departamento', 'Desafios_Laborales', 'Uso_Actual_IA',
+        'Herramientas_Corp', 'Objetivo_IA', 'Idioma'
       ]);
     }
 
@@ -45,11 +41,17 @@ function doPost(e) {
       data.rubro || '',
       data.categorias || '',
       data.suscripcion || '',
+      data.perfil || '',
       data.descripcion_negocio || '',
       data.servicios_productos || '',
       data.oportunidades_dolores || '',
       data.publico_objetivo || '',
       data.herramientas_ia || '',
+      data.area_departamento || '',
+      data.desafios_laborales || '',
+      data.uso_actual_ia || '',
+      data.herramientas_corp || '',
+      data.objetivo_ia || '',
       data.idioma || 'es'
     ]);
 

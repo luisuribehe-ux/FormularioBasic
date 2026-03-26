@@ -151,41 +151,96 @@
 
         <!-- Conditional Fields (Option 2 only) -->
         <div id="conditional-fields" class="conditional-fields">
+
+          <!-- Profile Selector -->
           <div class="conditional-header">
             <div class="conditional-line"></div>
-            <span data-i18n="conditional-title">Cuéntanos sobre tu negocio</span>
+            <span data-i18n="profile-title">Cuéntanos sobre ti</span>
             <div class="conditional-line"></div>
           </div>
 
-          <div class="field">
-            <label for="descripcion_negocio" data-i18n="label-desc-negocio">Descripción del negocio</label>
-            <textarea id="descripcion_negocio" rows="3" data-i18n-placeholder="ph-desc-negocio" placeholder="¿A qué se dedica tu empresa? Describe brevemente tu modelo de negocio."></textarea>
-            <span class="error-msg"></span>
+          <div class="profile-selector">
+            <label class="profile-btn" for="profile-entrepreneur">
+              <input type="radio" name="perfil" id="profile-entrepreneur" value="emprendedor">
+              <div class="profile-btn-content">
+                <span class="profile-icon">🚀</span>
+                <div>
+                  <span class="profile-btn-title" data-i18n="profile-entrepreneur">Mi propio negocio</span>
+                  <span class="profile-btn-desc" data-i18n="profile-entrepreneur-desc">Emprendedor, consultor, freelance o dueño de empresa</span>
+                </div>
+              </div>
+            </label>
+            <label class="profile-btn" for="profile-corporate">
+              <input type="radio" name="perfil" id="profile-corporate" value="corporativo">
+              <div class="profile-btn-content">
+                <span class="profile-icon">🏢</span>
+                <div>
+                  <span class="profile-btn-title" data-i18n="profile-corporate">Trabajo en una empresa</span>
+                  <span class="profile-btn-desc" data-i18n="profile-corporate-desc">Profesional, líder de equipo o ejecutivo en una organización</span>
+                </div>
+              </div>
+            </label>
+            <span class="error-msg" id="perfil-error"></span>
           </div>
 
-          <div class="field">
-            <label for="servicios_productos" data-i18n="label-servicios">Servicios o Productos</label>
-            <textarea id="servicios_productos" rows="3" data-i18n-placeholder="ph-servicios" placeholder="¿Qué productos o servicios ofreces?"></textarea>
-            <span class="error-msg"></span>
+          <!-- Entrepreneur Fields -->
+          <div id="entrepreneur-fields" class="profile-fields">
+            <div class="field">
+              <label for="descripcion_negocio" data-i18n="label-desc-negocio">Descripción del negocio</label>
+              <textarea id="descripcion_negocio" rows="3" data-i18n-placeholder="ph-desc-negocio" placeholder="¿A qué se dedica tu empresa? Describe brevemente tu modelo de negocio."></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="servicios_productos" data-i18n="label-servicios">Servicios o Productos</label>
+              <textarea id="servicios_productos" rows="3" data-i18n-placeholder="ph-servicios" placeholder="¿Qué productos o servicios ofreces?"></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="oportunidades_dolores" data-i18n="label-dolores">Oportunidades o Dolores hoy</label>
+              <textarea id="oportunidades_dolores" rows="3" data-i18n-placeholder="ph-dolores" placeholder="¿Cuáles son tus principales retos o áreas de oportunidad?"></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="publico_objetivo" data-i18n="label-publico">Público objetivo</label>
+              <textarea id="publico_objetivo" rows="3" data-i18n-placeholder="ph-publico" placeholder="¿Quiénes son tus clientes ideales? Describe tu público objetivo."></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="herramientas_ia" data-i18n="label-herramientas">Herramientas de IA que usas</label>
+              <textarea id="herramientas_ia" rows="3" data-i18n-placeholder="ph-herramientas" placeholder="¿Qué herramientas de IA usas actualmente? (ChatGPT, Claude, Copilot, etc.)"></textarea>
+              <span class="error-msg"></span>
+            </div>
           </div>
 
-          <div class="field">
-            <label for="oportunidades_dolores" data-i18n="label-dolores">Oportunidades o Dolores hoy</label>
-            <textarea id="oportunidades_dolores" rows="3" data-i18n-placeholder="ph-dolores" placeholder="¿Cuáles son tus principales retos o áreas de oportunidad?"></textarea>
-            <span class="error-msg"></span>
+          <!-- Corporate Fields -->
+          <div id="corporate-fields" class="profile-fields">
+            <div class="field">
+              <label for="area_departamento" data-i18n="label-area">Área o departamento</label>
+              <input type="text" id="area_departamento" data-i18n-placeholder="ph-area" placeholder="Marketing, Ventas, Operaciones, Tecnología, RRHH...">
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="desafios_laborales" data-i18n="label-desafios">Principales desafíos en tu día a día</label>
+              <textarea id="desafios_laborales" rows="3" data-i18n-placeholder="ph-desafios" placeholder="Ej: Tareas operativas repetitivas, exceso de reuniones, reportes manuales, coordinación entre equipos..."></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="uso_actual_ia" data-i18n="label-uso-ia">¿Cómo usas IA hoy en tu trabajo?</label>
+              <textarea id="uso_actual_ia" rows="3" data-i18n-placeholder="ph-uso-ia" placeholder="Ej: Para redactar emails, analizar datos, generar presentaciones, aún no la uso..."></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="herramientas_corp" data-i18n="label-herramientas-corp">Herramientas de IA que usas o conoces</label>
+              <textarea id="herramientas_corp" rows="3" data-i18n-placeholder="ph-herramientas-corp" placeholder="ChatGPT, Claude, Copilot, Gemini, Midjourney, ninguna..."></textarea>
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="objetivo_ia" data-i18n="label-objetivo">¿Qué quieres lograr con IA en tu rol?</label>
+              <textarea id="objetivo_ia" rows="3" data-i18n-placeholder="ph-objetivo" placeholder="Ej: Automatizar tareas, ser más productivo, mejorar análisis de datos, aprender nuevas habilidades..."></textarea>
+              <span class="error-msg"></span>
+            </div>
           </div>
 
-          <div class="field">
-            <label for="publico_objetivo" data-i18n="label-publico">Público objetivo</label>
-            <textarea id="publico_objetivo" rows="3" data-i18n-placeholder="ph-publico" placeholder="¿Quiénes son tus clientes ideales? Describe tu público objetivo."></textarea>
-            <span class="error-msg"></span>
-          </div>
-
-          <div class="field">
-            <label for="herramientas_ia" data-i18n="label-herramientas">Herramientas actuales de IA</label>
-            <textarea id="herramientas_ia" rows="3" data-i18n-placeholder="ph-herramientas" placeholder="¿Qué herramientas de IA usas actualmente? (ChatGPT, Claude, Copilot, etc.)"></textarea>
-            <span class="error-msg"></span>
-          </div>
         </div>
 
         <!-- Submit -->
