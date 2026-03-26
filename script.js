@@ -22,7 +22,7 @@ const translations = {
     'label-empresa': 'Empresa',
     'label-rubro': 'Rubro',
     'label-categorias': '¿Qué temas te interesan?',
-    'hint-categorias': 'Selecciona hasta 5 temas',
+    'hint-categorias': 'Selecciona hasta 3 temas',
     'cat-ia-general': 'IA General & Tendencias',
     'cat-herramientas': 'Herramientas & Productos de IA',
     'cat-claude': 'Claude Code & Agentes IA',
@@ -34,7 +34,7 @@ const translations = {
     'cat-automatizacion': 'Automatización & No-Code',
     'cat-prompting': 'Prompting & Casos de Uso',
     'val-categorias': 'Selecciona al menos un tema',
-    'val-categorias-max': 'Máximo 5 temas',
+    'val-categorias-max': 'Máximo 3 temas',
     'label-suscripcion': 'Elige tu suscripción',
     'opt-general-title': 'Newsletter General',
     'opt-general-desc': 'Updates diarios de Claude Code y herramientas de IA. Gratis por 1 semana.',
@@ -106,7 +106,7 @@ const translations = {
     'label-empresa': 'Company',
     'label-rubro': 'Industry',
     'label-categorias': 'What topics interest you?',
-    'hint-categorias': 'Select up to 5 topics',
+    'hint-categorias': 'Select up to 3 topics',
     'cat-ia-general': 'General AI & Trends',
     'cat-herramientas': 'AI Tools & Products',
     'cat-claude': 'Claude Code & AI Agents',
@@ -118,7 +118,7 @@ const translations = {
     'cat-automatizacion': 'Automation & No-Code',
     'cat-prompting': 'Prompting & Use Cases',
     'val-categorias': 'Select at least one topic',
-    'val-categorias-max': 'Maximum 5 topics',
+    'val-categorias-max': 'Maximum 3 topics',
     'label-suscripcion': 'Choose your subscription',
     'opt-general-title': 'General Newsletter',
     'opt-general-desc': 'Daily Claude Code and AI tools updates. Free for 1 week.',
@@ -323,7 +323,7 @@ function validateForm() {
   if (checkedCategories.length === 0) {
     document.getElementById('categorias-error').textContent = translations[currentLang]['val-categorias'];
     isValid = false;
-  } else if (checkedCategories.length > 5) {
+  } else if (checkedCategories.length > 3) {
     document.getElementById('categorias-error').textContent = translations[currentLang]['val-categorias-max'];
     isValid = false;
   }
@@ -376,7 +376,7 @@ function initRealTimeValidation() {
     cb.addEventListener('change', () => {
       const checked = document.querySelectorAll('input[name="categorias"]:checked');
       // Enforce max 3
-      if (checked.length > 5) {
+      if (checked.length > 3) {
         cb.checked = false;
         document.getElementById('categorias-error').textContent = translations[currentLang]['val-categorias-max'];
         return;
